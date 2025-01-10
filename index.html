@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js Blob</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+    }
+
+    canvas {
+      display: block;
+      position: relative;
+      background-color: #fff;
+    }
+
+    .content {
+      position: relative;
+    }
+
+    .content__img {
+      overflow: hidden;
+      position: absolute;
+      top: 19%;
+      left: 19%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 310px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .content__img img {
+      opacity: .5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="content">
+    <div class="content__img">
+      <img class="img" src="./img.jpg" alt="">
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script id="vertexShader" type="x-shader/x-vertex">
+  </script>
+  <script id="fragmentShader" type="x-shader/x-fragment">
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>
