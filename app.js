@@ -10,7 +10,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 const content = document.querySelector(".content");
 const renderer = new THREE.WebGLRenderer({ alpha: true }); // Устанавливаем transparent на true
-renderer.setSize(500, 500); // Устанавливаем размер рендерера
+renderer.setSize(550, 550); // Устанавливаем размер рендерера
 renderer.setClearColor(0x000000, 0); // Устанавливаем прозрачный фон
 content.appendChild(renderer.domElement);
 
@@ -121,10 +121,12 @@ varying vec2 vUv;
 varying float vDisplacement;
 
 void main() {
-    // Без прозрачности
-    float alpha = 1.0; // Полностью непрозрачная анимация
-    vec3 color = vec3(abs(vUv - 0.5) * 2.0, 1.0); // Цвет остается видимым
-    gl_FragColor = vec4(color, alpha); // Полностью непрозрачный альфа-канал
+    // Вычисляем альфа-канал, который будет изменяться со временем
+    float alpha = 1.0 - 0.5 * sin(u_time + length(vUv - 0.5) * 10.0); // Прозрачность изменяется в зависимости от времени и расстояния от центра
+
+    // Модификация цвета для визуализации
+    vec3 color = vec3(abs(vUv - 0.5) * 2.0, 1.0); // Цвет по-прежнему зависит от текстурных координат
+    gl_FragColor = vec4(color, alpha); // Применяем измененный альфа-канал
 }
 `;
 
