@@ -8,11 +8,12 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+
 const content = document.querySelector(".content");
-const renderer = new THREE.WebGLRenderer({ alpha: true }); // Устанавливаем transparent на true
+const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(550, 550); // Устанавливаем размер рендерера
 renderer.setClearColor(0x000000, 1); // Устанавливаем прозрачный фон
-content.appendChild(renderer.domElement);
+content.appendChild(renderer.domElement); // рендер канваса в content
 
 // Загружаем шейдеры
 const vertexShader = `
@@ -121,12 +122,17 @@ varying vec2 vUv;
 varying float vDisplacement;
 
 void main() {
-    // Вычисляем альфа-канал, который будет изменяться со временем
-    float alpha = 0.5 + 0.5 * sin(u_time * 2.0 + length(vUv - 0.5) * 10.0); // Увеличиваем частоту изменений для четкости
+    // Увеличим амплитуду и частоту для более сильного и быстрого пульсирующего свечения
+    float alpha = 0.5 + 0.5 * sin(u_time * 4.0 + length(vUv - 0.5) * 10.0); // Увеличена частота для более быстрой пульсации
 
     // Модификация цвета для визуализации
     vec3 color = vec3(abs(vUv - 0.5) * 2.0, 1.0); // Цвет по-прежнему зависит от текстурных координат
-    gl_FragColor = vec4(color, alpha); // Применяем измененный альфа-канал
+
+    // Усилим свечение
+    vec3 emission = vec3(1.0); // Белое свечение
+    emission *= sin(u_time * 6.0) * 0.8 + 0.2; // Увеличена амплитуда для яркости свечения и высокая частота
+
+    gl_FragColor = vec4(color + emission, alpha); // Применяем измененный альфа-канал и добавляем усиленное свечение
 }
 `;
 
@@ -135,11 +141,14 @@ const uniforms = {
   u_time: { value: 0 },
   u_intensity: { value: 0.3 },
 };
+
 const material = new THREE.ShaderMaterial({
   vertexShader,
   fragmentShader,
   uniforms,
   transparent: true, // Убираем прозрачность
+  emissive: new THREE.Color(0xffffff), // Белое свечение
+  emissiveIntensity: 2.0, // Интенсивность свечения
 });
 
 const mesh = new THREE.Mesh(geometry, material);
