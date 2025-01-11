@@ -11,7 +11,7 @@ const camera = new THREE.PerspectiveCamera(
 const content = document.querySelector(".content");
 const renderer = new THREE.WebGLRenderer({ alpha: true }); // Устанавливаем transparent на true
 renderer.setSize(550, 550); // Устанавливаем размер рендерера
-renderer.setClearColor(0x000000, 0); // Устанавливаем прозрачный фон
+renderer.setClearColor(0x000000, 1); // Устанавливаем прозрачный фон
 content.appendChild(renderer.domElement);
 
 // Загружаем шейдеры
