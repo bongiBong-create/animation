@@ -18,7 +18,8 @@
       display: block;
     }
 
-    .content {
+    .content,
+    .mobile {
       position: relative;
     }
 
@@ -36,7 +37,21 @@
       z-index: 1;
     }
 
-    .content__img img {
+    .mobile__img {
+      overflow: hidden;
+      position: absolute;
+      display: flex;
+      top: 87px;
+      left: 82px;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .img {
       opacity: .4;
     }
   </style>
@@ -50,12 +65,20 @@
     </div>
   </div>
 
+  <div class="mobile">
+    <div class="mobile__img">
+      <img class="img" src="./Avatar.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- Скрипты  -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script id="vertexShader" type="x-shader/x-vertex">
   </script>
   <script id="fragmentShader" type="x-shader/x-fragment">
   </script>
   <script type="module" src="app.js"></script>
+  <script type="module" src="./mobile.js"></script>
 </body>
 
 </html>
